@@ -3,6 +3,7 @@
     <h4
       v-if="hasSlot('header')"
       :class="classNamesHeader"
+      style="background-color: #864de8;"
     >
       <slot name="header"/>
     </h4>
@@ -71,10 +72,7 @@ export default {
       const classNames = ['card-header'];
 
       if (this.contextualStyle) {
-        classNames.push(`bg-${this.contextualStyle}`);
         classNames.push('text-white');
-      } else {
-        classNames.push('bg-default');
       }
 
       return classNames;

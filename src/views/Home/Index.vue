@@ -19,7 +19,7 @@
         <hr>
         <p>
           <button
-            class="btn btn-outline-primary"
+            class="btn btn-outline-purple"
             @click="aeppConnect"
           >
             Connect to application
@@ -36,7 +36,7 @@
         <hr>
         <p>
           <button
-            class="btn btn-outline-primary"
+            class="btn btn-outline-purple"
             @click="aeppRequestSign"
           >
             Sign spendTx
@@ -49,7 +49,7 @@
         <hr>
         <p>
           <button
-            class="btn btn-outline-primary"
+            class="btn btn-outline-purple"
             @click="aeppContractCallStatic"
           >
             Contract call static
@@ -62,7 +62,7 @@
         <hr>
         <p>
           <button
-            class="btn btn-outline-primary"
+            class="btn btn-outline-purple"
             @click="aeppContractCall"
           >
             Contract call stateful

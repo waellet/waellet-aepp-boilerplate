@@ -1,6 +1,9 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav
+      class="navbar navbar-expand-lg navbar-dark"
+      style="background-color: #864de8;"
+    >
       <router-link
         :to="{ name: 'home.index' }"
         class="navbar-brand"

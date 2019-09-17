@@ -35,7 +35,7 @@
         </table>
       </div>
       <div slot="footer">
-        Made with love by Vivid Web
+        Made with love by <a href="https://github.com/mradkov">Milen Radkov</a> @ <a href="https://hack.bg">hack.bg</a>
       </div>
     </v-card>
   </v-layout>
