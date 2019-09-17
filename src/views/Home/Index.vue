@@ -8,56 +8,69 @@
         <p>
           Get started with the Waellet Aepp Boilerplate
         </p>
+        <h3>
+          1. Request connect
+        </h3>
         <p>
-          For questions, contact me:
-        </p>
-        <p>
-          <a
-            class="btn btn-outline-primary"
-            href="https://github.com/mradkov"
-            target="_blank"
-          >
-            <i
-              class="fa fa-github fa-fw"
-              aria-hidden="true"
-            />
-            <span class="pl-2">
-              Github
-            </span>
-          </a>
-          <a
-            class="btn btn-outline-primary"
-            href="http://twitter.com/milen_radkov"
-            target="_blank"
-          >
-            <i
-              class="fa fa-twitter fa-fw"
-              aria-hidden="true"
-            />
-            <span class="pl-2">
-              Twitter
-            </span>
-          </a>
-        </p>
-        <p>
-          For bugs, see:
-        </p>
-        <a
-          class="btn btn-outline-primary"
-          href="https://github.com/waellet/waellet-aepp-boilerplate/issues"
-          target="_blank"
-        >
-          <i
-            class="fa fa-github fa-fw"
-            aria-hidden="true"
-          />
-          <span class="pl-2">
-            GitHub
+          <span>
+            Authorize application to use waellet
           </span>
-        </a>
+        </p>
+        <hr>
+        <p>
+          <button
+            class="btn btn-outline-primary"
+            @click="aeppConnect"
+          >
+            Connect to application
+          </button>
+        </p>
+        <h3>
+          2. Request spend
+        </h3>
+        <p>
+          <span>
+            Sign a spend transaction
+          </span>
+        </p>
+        <hr>
+        <p>
+          <button
+            class="btn btn-outline-primary"
+            @click="aeppRequestSign"
+          >
+            Sign spendTx
+          </button>
+        </p>
+        <h3>
+          3. Contract call (static)
+        </h3>
+        <p>Read from the smart contract state</p>
+        <hr>
+        <p>
+          <button
+            class="btn btn-outline-primary"
+            @click="aeppContractCallStatic"
+          >
+            Contract call static
+          </button>
+        </p>
+        <h3>
+          4. Contract call (stateful)
+        </h3>
+        <p>Persist data on-chain.</p>
+        <hr>
+        <p>
+          <button
+            class="btn btn-outline-primary"
+            @click="aeppContractCall"
+          >
+            Contract call stateful
+          </button>
+        </p>
       </div>
       <div slot="footer">
-        Made with love by <a href="https://hack.bg">hack.bg</a>
+        Made with love by <a href="https://github.com/mradkov">Milen Radkov</a> @ <a href="https://hack.bg">hack.bg</a>
       </div>
     </v-card>
   </v-layout>
@@ -86,6 +99,78 @@ export default {
   components: {
     VLayout,
     VCard,
+  },
+  data() {
+    return {
+      initiated: false,
+      contractSource: `contract Number =
+  record state = { number: int }
+  entrypoint init() : state = {number = 0}
+  entrypoint get() : int = state.number
+  stateful entrypoint set(new_number : int) = put(state{ number = new_number })`,
+      contractAddress: 'ct_g6zMoB4qubN3SrgQXPW43K7hgYG7PHMccyW6TXgHwEXjtVSSu',
+      Aepp: null,
+    };
+  },
+  computed: {},
+  watch: {},
+  created() {},
+  mounted() {
+    this.isAeppInjected();
+  },
+  methods: {
+    isAeppInjected() {
+      if (window.Aepp !== 'undefined') {
+        this.Aepp = window.Aepp;
+      } else {
+        throw Error('Aepp object is not injected.');
+      }
+    },
+    aeppConnect() {
+      this.Aepp
+        .request
+        .connect()
+        .then((result) => {
+          console.log(result);
+        });
+    },
+    aeppRequestSign() {
+      this.Aepp
+        .request
+        .sign({
+          recipientId: 'ak_2DDLbYBhHcuAzNg5Un853NRbUr8JVjZeMc6mTUpwmiVzA4ic6X',
+          amount: 0.01,
+        })
+        .then((result) => {
+          console.log(result);
+        });
+    },
+    aeppContractCallStatic() {
+      this.Aepp
+        .request
+        .contractCallStatic({
+          source: this.contractSource,
+          address: this.contractAddress,
+          method: 'get',
+          params: [],
+        })
+        .then((result) => {
+          console.log(result);
+        });
+    },
+    aeppContractCall() {
+      this.Aepp
+        .request
+        .contractCall({
+          source: this.contractSource,
+          address: this.contractAddress,
+          method: 'set',
+          params: [1],
+        })
+        .then((result) => {
+          console.log(result);
+        });
+    },
   },
 };
 </script>
