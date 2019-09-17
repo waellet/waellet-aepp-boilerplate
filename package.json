@@ -1,0 +1,87 @@
+{
+  "name": "waellet-aepp-boilerplate",
+  "version": "1.0.0",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test": "vue-cli-service test",
+    "e2e": "vue-cli-service e2e",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap": "4.1.1",
+    "copy-webpack-plugin": "^5.0.4",
+    "ejs": "^2.7.1",
+    "font-awesome": "^4.7.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "register-service-worker": "^1.0.0",
+    "vue": "^2.5.13",
+    "vue-i18n": "^8.0.0",
+    "vue-loader": "^15.7.1",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1",
+    "vuex-router-sync": "^5.0.0",
+    "webpack": "^4.40.2",
+    "webpack-chrome-extension-reloader": "^1.3.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0",
+    "@vue/cli-plugin-e2e-nightwatch": "^3.0.0",
+    "@vue/cli-plugin-eslint": "^3.0.0",
+    "@vue/cli-plugin-pwa": "^3.0.0",
+    "@vue/cli-plugin-unit-mocha": "^3.0.0",
+    "@vue/cli-service": "^3.0.0",
+    "@vue/eslint-config-airbnb": "^3.0.0",
+    "@vue/test-utils": "^1.0.0-beta.12",
+    "chai": "^4.1.2",
+    "lint-staged": "^7.0.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "vue-template-compiler": "^2.5.13"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "author": "Milen Radkov <milenradkov@me.com>",
+  "description": "A boilerplate for aeternity decentralized application using Waellet",
+  "bugs": {
+    "url": "https://github.com/waellet/waellet-aepp-boilerplate/issues"
+  },
+  "homepage": "https://github.com/waellet/waellet-aepp-boilerplate#readme",
+  "lint-staged": {
+    "*.js": [
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.vue": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waellet/waellet-aepp-boilerplate.git"
+  },
+  "keywords": [
+    "Aeternity",
+    "Waellet",
+    "Vue",
+    "Next",
+    "Boilerplate",
+    "Webpack",
+    "Lint",
+    "Medium",
+    "Large",
+    "SPA",
+    "Single",
+    "Page",
+    "Application"
+  ],
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "license": "MIT"
+}
