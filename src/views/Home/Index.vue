@@ -6,7 +6,7 @@
       </span>
       <div slot="body">
         <p>
-          Get started with the Vue 2 boilerplate
+          Get started with the Waellet Aepp Boilerplate
         </p>
         <p>
           For questions, contact me:
