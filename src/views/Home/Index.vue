@@ -5,69 +5,97 @@
         {{ $t('general.welcome') }}
       </span>
       <div slot="body">
-        <p>
-          Get started with the Waellet Aepp Boilerplate
-        </p>
-        <h3>
-          1. Request connect
-        </h3>
-        <p>
-          <span>
-            Authorize application to use waellet
-          </span>
-        </p>
-        <hr>
-        <p>
-          <button
-            class="btn btn-outline-purple"
-            @click="aeppConnect"
-          >
-            Connect to application
-          </button>
-        </p>
-        <h3>
-          2. Request spend
-        </h3>
-        <p>
-          <span>
-            Sign a spend transaction
-          </span>
-        </p>
-        <hr>
-        <p>
-          <button
-            class="btn btn-outline-purple"
-            @click="aeppRequestSign"
-          >
-            Sign spendTx
-          </button>
-        </p>
-        <h3>
-          3. Contract call (static)
-        </h3>
-        <p>Read from the smart contract state</p>
-        <hr>
-        <p>
-          <button
-            class="btn btn-outline-purple"
-            @click="aeppContractCallStatic"
-          >
-            Contract call static
-          </button>
-        </p>
-        <h3>
-          4. Contract call (stateful)
-        </h3>
-        <p>Persist data on-chain.</p>
-        <hr>
-        <p>
-          <button
-            class="btn btn-outline-purple"
-            @click="aeppContractCall"
-          >
-            Contract call stateful
-          </button>
-        </p>
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              Get started with the Waellet Aepp Boilerplate
+            </p>
+            <h3>
+              1. Request connect
+            </h3>
+            <p>
+              <span>
+                Authorize application to use waellet
+              </span>
+            </p>
+            <hr>
+            <p>
+              <button
+                class="btn btn-outline-purple"
+                @click="aeppConnect"
+              >
+                Connect to application
+              </button>
+            </p>
+          </div>
+          <div class="col-md-6">
+            code here
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h3>
+              2. Request spend
+            </h3>
+            <p>
+              <span>
+                Sign a spend transaction
+              </span>
+            </p>
+            <hr>
+            <p>
+              <button
+                class="btn btn-outline-purple"
+                @click="aeppRequestSign"
+              >
+                Sign spendTx
+              </button>
+            </p>
+          </div>
+          <div class="col-md-6">
+            code here
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h3>
+              3. Contract call (static)
+            </h3>
+            <p>Read from the smart contract state</p>
+            <hr>
+            <p>
+              <button
+                class="btn btn-outline-purple"
+                @click="aeppContractCallStatic"
+              >
+                Contract call static
+              </button>
+            </p>
+          </div>
+          <div class="col-md-6">
+            code here
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h3>
+              4. Contract call (stateful)
+            </h3>
+            <p>Persist data on-chain.</p>
+            <hr>
+            <p>
+              <button
+                class="btn btn-outline-purple"
+                @click="aeppContractCall"
+              >
+                Contract call stateful
+              </button>
+            </p>
+          </div>
+          <div class="col-md-6">
+            code here
+          </div>
+        </div>
       </div>
       <div slot="footer">
         Made with love by <a href="https://github.com/mradkov">Milen Radkov</a> @ <a href="https://hack.bg">hack.bg</a>
