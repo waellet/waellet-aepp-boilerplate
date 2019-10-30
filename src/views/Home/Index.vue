@@ -18,7 +18,6 @@
                 Authorize application to use waellet
               </span>
             </p>
-            <hr>
             <p>
               <button
                 class="btn btn-outline-purple"
@@ -29,9 +28,21 @@
             </p>
           </div>
           <div class="col-md-6">
-            code here
+            <pre v-highlightjs>
+              <code class="javascript">
+    Aepp
+      .request
+      .connect()
+      .then((result) => {
+        // get the result
+        // and make action
+        console.log(result);
+      });
+              </code>
+            </pre>
           </div>
         </div>
+        <hr>
         <div class="row">
           <div class="col-md-6">
             <h3>
@@ -42,7 +53,6 @@
                 Sign a spend transaction
               </span>
             </p>
-            <hr>
             <p>
               <button
                 class="btn btn-outline-purple"
@@ -53,16 +63,30 @@
             </p>
           </div>
           <div class="col-md-6">
-            code here
+            <pre v-highlightjs>
+              <code class="javascript">
+    Aepp
+      .request
+      .sign({
+        recipientId: 'ak_2DDLbYBhHcuAzNg5Un853NRbUr8JVjZeMc6mTUpwmiVzA4ic6X',
+        amount: 0.01,
+      })
+      .then((result) => {
+        // get the result
+        // and make action
+        console.log(result);
+      });
+              </code>
+            </pre>
           </div>
         </div>
+        <hr>
         <div class="row">
           <div class="col-md-6">
             <h3>
               3. Contract call (static)
             </h3>
             <p>Read from the smart contract state</p>
-            <hr>
             <p>
               <button
                 class="btn btn-outline-purple"
@@ -73,16 +97,34 @@
             </p>
           </div>
           <div class="col-md-6">
-            code here
+            <pre v-highlightjs>
+              <code class="javascript">
+    Aepp
+      .request
+      .contractCallStatic({
+        source:
+        `contract Number =
+          entrypoint get() => int
+          entrypoint set(int) => ()`,
+        address: 'ct_g6zMoB4qubN3SrgQXPW43K7hgYG7PHMccyW6TXgHwEXjtVSSu',
+        method: 'get'
+      })
+      .then((result) => {
+        // get the result
+        // and make action
+        console.log(result);
+      });
+              </code>
+            </pre>
           </div>
         </div>
+        <hr>
         <div class="row">
           <div class="col-md-6">
             <h3>
               4. Contract call (stateful)
             </h3>
             <p>Persist data on-chain.</p>
-            <hr>
             <p>
               <button
                 class="btn btn-outline-purple"
@@ -93,7 +135,26 @@
             </p>
           </div>
           <div class="col-md-6">
-            code here
+            <pre v-highlightjs>
+              <code class="javascript">
+    Aepp
+      .request
+      .contractCall({
+        source:
+        `contract Number =
+          entrypoint get() => int
+          entrypoint set(int) => ()`,
+        address: 'ct_g6zMoB4qubN3SrgQXPW43K7hgYG7PHMccyW6TXgHwEXjtVSSu',
+        method: 'set',
+        params: [1],
+      })
+      .then((result) => {
+        // get the result
+        // and make action
+        console.log(result);
+      });
+              </code>
+            </pre>
           </div>
         </div>
       </div>
