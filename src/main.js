@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* ============
  * Main File
  * ============
@@ -6,6 +7,18 @@
  */
 
 import Vue from 'vue';
+
+
+/* ============
+ * Code highlighting
+ * ============
+ *
+ * Import the hljs code highlighting plugin.
+ */
+
+import hljs from 'highlight.js';
+
+// import VueHighLightJs from 'vue-highlightjs';
 
 /* ============
  * Plugins
@@ -54,6 +67,32 @@ import store from './store';
 Vue.config.productionTip = false;
 
 store.dispatch('auth/check');
+
+Vue.directive('highlightjs', {
+  deep: true,
+  bind(el, binding) {
+    // on first bind, highlight all targets
+    const targets = el.querySelectorAll('code');
+    targets.forEach((target) => {
+      // if a value is directly assigned to the directive, use this
+      // instead of the element content.
+      if (binding.value) {
+        target.textContent = binding.value;
+      }
+      hljs.highlightBlock(target);
+    });
+  },
+  componentUpdated(el, binding) {
+    // after an update, re-fill the content and then highlight
+    const targets = el.querySelectorAll('code');
+    targets.forEach((target) => {
+      if (binding.value) {
+        target.textContent = binding.value;
+        hljs.highlightBlock(target);
+      }
+    });
+  },
+});
 
 /* eslint-disable no-new */
 new Vue({
