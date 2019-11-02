@@ -97,16 +97,19 @@
             </p>
           </div>
           <div class="col-md-6">
+            <div v-if="staticCallResult">
+              <pre>
+                Result: {{ staticCallResult }}
+              </pre>
+            </div>
             <pre v-highlightjs>
               <code class="javascript">
     Aepp
       .request
       .contractCallStatic({
         source:
-        `contract Number =
-          entrypoint get() => int
-          entrypoint set(int) => ()`,
-        address: 'ct_g6zMoB4qubN3SrgQXPW43K7hgYG7PHMccyW6TXgHwEXjtVSSu',
+        `{{ contractSource }}`,
+        address: '{{ contractAddress }}',
         method: 'get'
       })
       .then((result) => {
@@ -135,16 +138,19 @@
             </p>
           </div>
           <div class="col-md-6">
+            <div v-if="statefulCallResult">
+              <pre>
+                Result: {{ statefulCallResult }}
+              </pre>
+            </div>
             <pre v-highlightjs>
               <code class="javascript">
     Aepp
       .request
       .contractCall({
         source:
-        `contract Number =
-          entrypoint get() => int
-          entrypoint set(int) => ()`,
-        address: 'ct_g6zMoB4qubN3SrgQXPW43K7hgYG7PHMccyW6TXgHwEXjtVSSu',
+        `{{ contractSource }}`,
+        address: '{{ contractAddress }}',
         method: 'set',
         params: [1],
       })
@@ -191,13 +197,15 @@ export default {
   },
   data() {
     return {
+      statefulCallResult: null,
+      staticCallResult: null,
       initiated: false,
-      contractSource: `contract Number =
-  record state = { number: int }
-  entrypoint init() : state = {number = 0}
-  entrypoint get() : int = state.number
-  stateful entrypoint set(new_number : int) = put(state{ number = new_number })`,
-      contractAddress: 'ct_g6zMoB4qubN3SrgQXPW43K7hgYG7PHMccyW6TXgHwEXjtVSSu',
+      contractSource: `contract MyContract =
+   type state = int
+   entrypoint init() : state = 0
+   stateful entrypoint set(x: int) = put(x)
+   stateful entrypoint get() : int = state`,
+      contractAddress: 'ct_FqoRNXNGsfHtRWu5QRAnpUhrMnynsLfKmPoYGtj1yrbdZgECD',
       Aepp: null,
     };
   },
@@ -244,6 +252,7 @@ export default {
           params: [],
         })
         .then((result) => {
+          this.staticCallResult = result.decodedResult;
           console.log(result);
         });
     },
@@ -257,6 +266,7 @@ export default {
           params: [1],
         })
         .then((result) => {
+          this.statefulCallResult = result.decodedResult;
           console.log(result);
         });
     },
