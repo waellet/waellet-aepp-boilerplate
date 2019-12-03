@@ -97,6 +97,11 @@
             </p>
           </div>
           <div class="col-md-6">
+            <div v-if="staticCallResult">
+              <pre>
+                Result: {{ staticCallResult }}
+              </pre>
+            </div>
             <pre v-highlightjs>
               <code class="javascript">
     Aepp
@@ -137,6 +142,11 @@
             </p>
           </div>
           <div class="col-md-6">
+            <div v-if="statefulCallResult">
+              <pre>
+                Result: {{ statefulCallResult }}
+              </pre>
+            </div>
             <pre v-highlightjs>
               <code class="javascript">
     Aepp
@@ -194,6 +204,8 @@ export default {
   },
   data() {
     return {
+      statefulCallResult: null,
+      staticCallResult: null,
       initiated: false,
       contractSource: `@compiler >= 4
 contract MyContract =
@@ -260,6 +272,7 @@ contract MyContract =
           params: [],
         })
         .then((result) => {
+          this.staticCallResult = result.decodedResult;
           console.log(result);
         });
     },
@@ -273,6 +286,7 @@ contract MyContract =
           params: [1, 'example'],
         })
         .then((result) => {
+          this.statefulCallResult = result.decodedResult;
           console.log(result);
         });
     },
