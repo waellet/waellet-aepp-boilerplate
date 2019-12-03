@@ -103,11 +103,13 @@
       .request
       .contractCallStatic({
         source:
-        `contract Number =
-          entrypoint get() => int
-          entrypoint set(int) => ()`,
-        address: 'ct_g6zMoB4qubN3SrgQXPW43K7hgYG7PHMccyW6TXgHwEXjtVSSu',
-        method: 'get'
+        `contract MyContract =
+          entrypoint set (int, string) => ()
+          entrypoint get_number () => int
+          entrypoint get_word () => string`,
+        address: 'ct_2SWomJGXwxvHXgAaX3sHDR3vbnaC4BG3Q8Egk3No562yf6SQ3d',
+        method: 'get_number',
+          params: [],
       })
       .then((result) => {
         // get the result
@@ -141,12 +143,13 @@
       .request
       .contractCall({
         source:
-        `contract Number =
-          entrypoint get() => int
-          entrypoint set(int) => ()`,
-        address: 'ct_g6zMoB4qubN3SrgQXPW43K7hgYG7PHMccyW6TXgHwEXjtVSSu',
+        `contract MyContract =
+          entrypoint set (int, string) => ()
+          entrypoint get_number () => int
+          entrypoint get_word () => string`,
+        address: 'ct_2SWomJGXwxvHXgAaX3sHDR3vbnaC4BG3Q8Egk3No562yf6SQ3d',
         method: 'set',
-        params: [1],
+        params: [1, "example"],
       })
       .then((result) => {
         // get the result
@@ -192,12 +195,14 @@ export default {
   data() {
     return {
       initiated: false,
-      contractSource: `contract Number =
-  record state = { number: int }
-  entrypoint init() : state = {number = 0}
-  entrypoint get() : int = state.number
-  stateful entrypoint set(new_number : int) = put(state{ number = new_number })`,
-      contractAddress: 'ct_g6zMoB4qubN3SrgQXPW43K7hgYG7PHMccyW6TXgHwEXjtVSSu',
+      contractSource: `@compiler >= 4
+contract MyContract =
+  record state = { number: int, word: string }
+  entrypoint init() : state = { number = 0, word = "" }
+  stateful entrypoint set(n: int, w: string) = put(state{ number = n, word = w })
+  entrypoint get_number() : int = state.number
+  entrypoint get_word() : string = state.word`,
+      contractAddress: 'ct_2SWomJGXwxvHXgAaX3sHDR3vbnaC4BG3Q8Egk3No562yf6SQ3d',
       Aepp: null,
     };
   },
@@ -240,7 +245,18 @@ export default {
         .contractCallStatic({
           source: this.contractSource,
           address: this.contractAddress,
-          method: 'get',
+          method: 'get_number',
+          params: [],
+        })
+        .then((result) => {
+          console.log(result);
+        });
+      this.Aepp
+        .request
+        .contractCallStatic({
+          source: this.contractSource,
+          address: this.contractAddress,
+          method: 'get_word',
           params: [],
         })
         .then((result) => {
@@ -254,7 +270,7 @@ export default {
           source: this.contractSource,
           address: this.contractAddress,
           method: 'set',
-          params: [1],
+          params: [1, 'example'],
         })
         .then((result) => {
           console.log(result);
