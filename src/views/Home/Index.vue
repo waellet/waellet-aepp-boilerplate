@@ -109,11 +109,10 @@
       .contractCallStatic({
         source:
         `contract MyContract =
-          entrypoint set (int, string) => ()
-          entrypoint get_number () => int
-          entrypoint get_word () => string`,
-        address: 'ct_2SWomJGXwxvHXgAaX3sHDR3vbnaC4BG3Q8Egk3No562yf6SQ3d',
-        method: 'get_number',
+          entrypoint set (int) => ()
+          entrypoint get () => int`,
+        address: 'ct_ym8eXWR2YfQZcMaXA8GFid9aarfCozGkeMcRHYVCVoBdVMzio',
+        method: 'get',
           params: [],
       })
       .then((result) => {
@@ -154,12 +153,11 @@
       .contractCall({
         source:
         `contract MyContract =
-          entrypoint set (int, string) => ()
-          entrypoint get_number () => int
-          entrypoint get_word () => string`,
-        address: 'ct_2SWomJGXwxvHXgAaX3sHDR3vbnaC4BG3Q8Egk3No562yf6SQ3d',
+          entrypoint set (int) => ()
+          entrypoint get () => int`,
+        address: 'ct_ym8eXWR2YfQZcMaXA8GFid9aarfCozGkeMcRHYVCVoBdVMzio',
         method: 'set',
-        params: [1, "example"],
+        params: [1],
       })
       .then((result) => {
         // get the result
@@ -209,12 +207,12 @@ export default {
       initiated: false,
       contractSource: `@compiler >= 4
 contract MyContract =
-  record state = { number: int, word: string }
-  entrypoint init() : state = { number = 0, word = "" }
-  stateful entrypoint set(n: int, w: string) = put(state{ number = n, word = w })
-  entrypoint get_number() : int = state.number
-  entrypoint get_word() : string = state.word`,
-      contractAddress: 'ct_2SWomJGXwxvHXgAaX3sHDR3vbnaC4BG3Q8Egk3No562yf6SQ3d',
+  type state = int
+  entrypoint init() : state = 0
+  stateful entrypoint set(n: int) = put(n)
+  entrypoint get() : int = state
+`,
+      contractAddress: 'ct_ym8eXWR2YfQZcMaXA8GFid9aarfCozGkeMcRHYVCVoBdVMzio',
       Aepp: null,
     };
   },
@@ -257,22 +255,10 @@ contract MyContract =
         .contractCallStatic({
           source: this.contractSource,
           address: this.contractAddress,
-          method: 'get_number',
+          method: 'get',
           params: [],
         })
         .then((result) => {
-          console.log(result);
-        });
-      this.Aepp
-        .request
-        .contractCallStatic({
-          source: this.contractSource,
-          address: this.contractAddress,
-          method: 'get_word',
-          params: [],
-        })
-        .then((result) => {
-          this.staticCallResult = result.decodedResult;
           console.log(result);
         });
     },
@@ -283,7 +269,7 @@ contract MyContract =
           source: this.contractSource,
           address: this.contractAddress,
           method: 'set',
-          params: [1, 'example'],
+          params: [1],
         })
         .then((result) => {
           this.statefulCallResult = result.decodedResult;
